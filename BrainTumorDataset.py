@@ -4,6 +4,7 @@ import random
 import numpy as np
 import torch
 from skimage.io import imread
+from skimage.color import rgb2gray
 from torch.utils.data import Dataset
 
 from utils import crop_sample, pad_sample, resize_sample, normalize_volume
@@ -40,7 +41,7 @@ class BrainSegmentationDataset(Dataset):
             ):
                 filepath = os.path.join(dirpath, filename)
                 if "mask" in filename:
-                    mask_slices.append(imread(filepath, as_gray=True))
+                    mask_slices.append(rgb2gray(imread(filepath)))
                 else:
                     image_slices.append(imread(filepath))
             if len(image_slices) > 0:

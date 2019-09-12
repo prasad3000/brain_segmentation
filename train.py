@@ -20,7 +20,7 @@ def main():
     weights = './weights'
     logs = './logs'
     makedirs(weights, logs)
-    snapshot(logs)
+    #snapshot(logs)
     device = torch.device("cpu" if not torch.cuda.is_available() else "cuda:0")
     
     images = './kaggle_3m'
@@ -152,13 +152,13 @@ def datasets(images, image_size, scale, angle):
     train = Dataset(
         images_dir=images,
         subset="train",
-        image_size,
+        image_size = image_size,
         transform=transforms(scale, angle, flip_prob=0.5),
     )
     valid = Dataset(
         images_dir=images,
         subset="validation",
-        image_size,
+        image_size = image_size,
         random_sampling=False,
     )
     return train, valid

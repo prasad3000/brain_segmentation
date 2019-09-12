@@ -60,18 +60,17 @@ def resize_sample(x, size=256):
         order=0,
         mode="constant",
         cval=0,
-        anti_aliasing=False,
     )
-    out_shape = out_shape + (v_shape[3],)
-    volume = resize(
-        volume,
+    out_shape = (size, size, v_shape[3])
+    volumes = [resize(
+        v,
         output_shape=out_shape,
         order=2,
         mode="constant",
         cval=0,
-        anti_aliasing=False,
-    )
-    return volume, mask
+    ) for v in volume]
+    volumes = np.asarray(volumes)
+    return volumes, mask
 
 
 def normalize_volume(volume):
